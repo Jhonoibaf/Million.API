@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Million.Properties.Infrastructure.Persintence;
-using Million.Properties.Infrastructure.Persintence.Models;
+using Million.Properties.Infrastructure.Persistence;
+using Million.Properties.Infrastructure.Persistence.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;

@@ -1,5 +1,5 @@
 ﻿
-namespace Million.Properties.Infrastructure.Persintence
+namespace Million.Properties.Infrastructure.Persistence
 {
     public class MongoSettings
     {

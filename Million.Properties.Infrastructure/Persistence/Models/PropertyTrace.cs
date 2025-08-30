@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Million.Properties.Infrastructure.Persintence.Models
+namespace Million.Properties.Infrastructure.Persistence.Models
 {
     internal class PropertyTrace
     {

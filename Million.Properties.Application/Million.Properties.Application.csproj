@@ -10,6 +10,7 @@
     <Folder Include="Features\Properties\Commands\" />
     <Folder Include="Features\Properties\Handlers\" />
     <Folder Include="Features\Properties\Queries\" />
+    <Folder Include="DTOs\" />
   </ItemGroup>
 
 </Project>

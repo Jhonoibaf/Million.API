@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Million.Properties.Infrastructure.Persintence;
+using Million.Properties.Infrastructure.Persistence;
 using MongoDB.Driver;
 
 namespace Million.Properties.Infrastructure.Startup

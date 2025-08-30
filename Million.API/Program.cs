@@ -1,4 +1,3 @@
-using System.Reflection;
 using Million.Properties.Infrastructure.Startup;
 
 public class Program

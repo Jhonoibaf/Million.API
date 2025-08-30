@@ -1,9 +1,9 @@
 ﻿
 using Microsoft.Extensions.Configuration;
-using Million.Properties.Infrastructure.Persintence.Models;
+using Million.Properties.Infrastructure.Persistence.Models;
 using MongoDB.Driver;
 
-namespace Million.Properties.Infrastructure.Persintence
+namespace Million.Properties.Infrastructure.Persistence
 {
     internal class MongoDbContext
     {
