@@ -1,8 +1,9 @@
-﻿using HealthChecks.MongoDb;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Million.Properties.Application.Contracts.Persistence;
 using Million.Properties.Infrastructure.Persistence;
+using Million.Properties.Infrastructure.Persistence.Repositories;
 using MongoDB.Driver;
 
 namespace Million.Properties.Infrastructure.Startup
@@ -28,6 +29,8 @@ namespace Million.Properties.Infrastructure.Startup
 
             services.AddSingleton<MongoDbContext>();
             services.AddSingleton<IDatabaseInitializer, DatabaseInitializer>();
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
+
 
             services.AddHealthChecks()
                 .AddMongoDb(

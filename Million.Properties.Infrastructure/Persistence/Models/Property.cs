@@ -7,12 +7,13 @@ namespace Million.Properties.Infrastructure.Persistence.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string IdProperty { get; set; } = string.Empty;
+        public string IdProperty { get; set; }
         public string Name { get; set; } = string.Empty;    
         public string Address { get; set; } = string.Empty;
         public decimal Price { get; set; }
-        public string InternalCode { get; set; } = string.Empty;
+        public int InternalCode { get; set; }
         public int Year { get; set; }
+        public string File { get; set; } = string.Empty;
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string IdOwner { get; set; } = string.Empty;
