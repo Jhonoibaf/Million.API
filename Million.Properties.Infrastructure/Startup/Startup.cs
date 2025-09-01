@@ -30,6 +30,8 @@ namespace Million.Properties.Infrastructure.Startup
             services.AddSingleton<MongoDbContext>();
             services.AddSingleton<IDatabaseInitializer, DatabaseInitializer>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IPropertyImageRepository, PropertyImageRepository>();
+
 
 
             services.AddHealthChecks()

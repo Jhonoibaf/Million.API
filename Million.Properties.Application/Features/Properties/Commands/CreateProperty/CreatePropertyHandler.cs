@@ -18,9 +18,10 @@ public class CreatePropertyHandler(IPropertyRepository repository, IMapper mappe
         {
             var entity = new CreatePropertyDto
             {
-                Name = request.Name,
-                Address = request.Address,
-                Price = request.Price,
+                Name = request.Request.Name,
+                Address = request.Request.Address,
+                Price = request.Request.Price,
+                File = request.Request.File?? string.Empty,    
             };
 
             var property = _mapper.Map<Property>(entity);
@@ -28,6 +29,7 @@ public class CreatePropertyHandler(IPropertyRepository repository, IMapper mappe
 
             return new CreatePropertyDto
             {
+                _id = property.IdProperty,
                 Name = entity.Name,
                 Address = entity.Address,
                 Price = entity.Price

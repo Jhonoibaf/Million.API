@@ -1,7 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Million.Properties.Application.DTOs;
 using Million.Properties.Application.Features.Properties.Commands.CreateProperty;
+using Million.Properties.Application.Features.Properties.Queries.GetAllProperties;
 using Million.Properties.Application.Features.Properties.Queries.GetPropertyById;
+using Million.Properties.Domain.Entities.Request;
 
 namespace Million.Properties.API.Controllers.V1;
 
@@ -25,4 +28,11 @@ public class PropertyController(IMediator mediator) : ControllerBase
         return result is null ? NotFound() : Ok(result);
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll([FromQuery] GetAllPropertiesRequest request)
+    {
+        var query = new GetAllPropertiesQuery(request);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 }

@@ -18,7 +18,7 @@ public class GetPropertyByIdHandler(IPropertyRepository repository)
 
             return new PropertyDto
             {
-                IdProperty = property.Id,
+                IdProperty = property.IdProperty,
                 Name = property.Name,
                 Address = property.Address,
                 Price = property.Price
