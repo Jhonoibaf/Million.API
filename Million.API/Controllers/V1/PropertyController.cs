@@ -9,7 +9,7 @@ using Million.Properties.Domain.Entities.Request;
 namespace Million.Properties.API.Controllers.V1;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/V1/[controller]")]
 public class PropertyController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
@@ -21,14 +21,14 @@ public class PropertyController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("GetProperty/{id}")]
     public async Task<IActionResult> GetById(string id)
     {
         var result = await _mediator.Send(new GetPropertyByIdQuery(id));
         return result is null ? NotFound() : Ok(result);
     }
 
-    [HttpGet]
+    [HttpGet("GetAllProperties")]
     public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll([FromQuery] GetAllPropertiesRequest request)
     {
         var query = new GetAllPropertiesQuery(request);

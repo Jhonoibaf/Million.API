@@ -6,34 +6,31 @@ using Million.Properties.Domain.Entities;
 
 namespace Million.Properties.Application.Features.Properties.Commands.CreateProperty;
 
-public class CreatePropertyHandler(IPropertyRepository repository, IMapper mapper)
+public class CreatePropertyHandler(IPropertyRepository repository, IMapper mapper , IPropertyImageRepository imageRepository)
     : IRequestHandler<CreatePropertyCommand, CreatePropertyDto>
 {
     private readonly IPropertyRepository _propertyRepository = repository;
     private readonly IMapper _mapper = mapper;
+    private readonly IPropertyImageRepository _imageRepository = imageRepository;
 
     public async Task<CreatePropertyDto> Handle(CreatePropertyCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var entity = new CreatePropertyDto
-            {
-                Name = request.Request.Name,
-                Address = request.Request.Address,
-                Price = request.Request.Price,
-                File = request.Request.File?? string.Empty,    
-            };
+            var entity = _mapper.Map<Property>(request.Request);
+            await repository.AddAsync(entity);
 
-            var property = _mapper.Map<Property>(entity);
-            await _propertyRepository.AddAsync(property);
-
-            return new CreatePropertyDto
+            if (!string.IsNullOrWhiteSpace(request.Request.File))
             {
-                _id = property.IdProperty,
-                Name = entity.Name,
-                Address = entity.Address,
-                Price = entity.Price
-            };
+                var img = new PropertyImage
+                {
+                    IdProperty = entity.IdProperty,
+                    File = request.Request.File
+                };
+                await imageRepository.AddAsync(img);
+            }
+
+            return _mapper.Map<CreatePropertyDto>(entity);
         }
         catch (Exception ex)
         {

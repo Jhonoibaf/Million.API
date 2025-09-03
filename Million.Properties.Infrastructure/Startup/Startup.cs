@@ -6,42 +6,41 @@ using Million.Properties.Infrastructure.Persistence;
 using Million.Properties.Infrastructure.Persistence.Repositories;
 using MongoDB.Driver;
 
-namespace Million.Properties.Infrastructure.Startup
+namespace Million.Properties.Infrastructure.Startup;
+
+public static class Startup
 {
-    public static class Startup
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration cfg)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration cfg)
+        services.Configure<MongoSettings>(cfg.GetSection("MongoSettings"));
+
+        services.AddSingleton<IMongoClient>(sp =>
         {
-            services.Configure<MongoSettings>(cfg.GetSection("MongoSettings"));
+            var cs = sp.GetRequiredService<IOptions<MongoSettings>>().Value.ConnectionString;
+            return new MongoClient(cs);
+        });
 
-            services.AddSingleton<IMongoClient>(sp =>
-            {
-                var cs = sp.GetRequiredService<IOptions<MongoSettings>>().Value.ConnectionString;
-                return new MongoClient(cs);
-            });
+        services.AddSingleton<IMongoDatabase>(sp =>
+        {
+            var opt = sp.GetRequiredService<IOptions<MongoSettings>>().Value;
+            var client = sp.GetRequiredService<IMongoClient>();
+            return client.GetDatabase(opt.DatabaseName);
+        });
 
-            services.AddSingleton<IMongoDatabase>(sp =>
-            {
-                var opt = sp.GetRequiredService<IOptions<MongoSettings>>().Value;
-                var client = sp.GetRequiredService<IMongoClient>();
-                return client.GetDatabase(opt.DatabaseName);
-            });
-
-            services.AddSingleton<MongoDbContext>();
-            services.AddSingleton<IDatabaseInitializer, DatabaseInitializer>();
-            services.AddScoped<IPropertyRepository, PropertyRepository>();
-            services.AddScoped<IPropertyImageRepository, PropertyImageRepository>();
+        services.AddSingleton<MongoDbContext>();
+        services.AddSingleton<IDatabaseInitializer, DatabaseInitializer>();
+        services.AddScoped<IPropertyRepository, PropertyRepository>();
+        services.AddScoped<IPropertyImageRepository, PropertyImageRepository>();
 
 
 
-            services.AddHealthChecks()
-                .AddMongoDb(
-                    sp => sp.GetRequiredService<IMongoClient>(),
-                    name: "mongodb",
-                    timeout: TimeSpan.FromSeconds(3));
+        services.AddHealthChecks()
+            .AddMongoDb(
+                sp => sp.GetRequiredService<IMongoClient>(),
+                name: "mongodb",
+                timeout: TimeSpan.FromSeconds(3));
 
-            return services;
-        }
+        return services;
     }
 }
 

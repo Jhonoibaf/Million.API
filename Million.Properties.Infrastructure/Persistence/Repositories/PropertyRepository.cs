@@ -1,7 +1,6 @@
-﻿using MongoDB.Driver;
-using Million.Properties.Application.Contracts.Persistence;
+﻿using Million.Properties.Application.Contracts.Persistence;
 using Million.Properties.Domain.Entities;
-using Million.Properties.Application.DTOs;
+using MongoDB.Driver;
 
 
 namespace Million.Properties.Infrastructure.Persistence.Repositories;
