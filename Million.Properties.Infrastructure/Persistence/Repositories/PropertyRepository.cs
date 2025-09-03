@@ -5,12 +5,17 @@ using MongoDB.Driver;
 
 namespace Million.Properties.Infrastructure.Persistence.Repositories;
 
-public class PropertyRepository(IMongoDatabase db) : IPropertyRepository
+public class PropertyRepository : IPropertyRepository
 {
-    private readonly IMongoCollection<Property> _collection = db.GetCollection<Property>("properties");
+    private readonly MongoDbContext _collection;
+
+    public PropertyRepository(MongoDbContext context)
+    {
+        _collection = context;
+    }
 
     public async Task<Property?> GetByIdAsync(string id) =>
-        await _collection.Find(x => x.IdProperty == id).FirstOrDefaultAsync();
+        await _collection.Properties.Find(x => x.IdProperty == id).FirstOrDefaultAsync();
 
     public async Task<IEnumerable<Property>> GetAllAsync(string? name, string? address, decimal? minPrice, decimal? maxPrice)
     {
@@ -28,15 +33,15 @@ public class PropertyRepository(IMongoDatabase db) : IPropertyRepository
         if (maxPrice.HasValue)
             filter &= Builders<Property>.Filter.Lte(x => x.Price, maxPrice.Value);
 
-        return await _collection.Find(filter).ToListAsync();
+        return await _collection.Properties.Find(filter).ToListAsync();
     }
 
     public async Task AddAsync(Property property) =>
-        await _collection.InsertOneAsync(property);
+        await _collection.Properties.InsertOneAsync(property);
 
     public async Task UpdateAsync(Property property) =>
-        await _collection.ReplaceOneAsync(x => x.IdProperty == property.IdProperty, property);
+        await _collection.Properties.ReplaceOneAsync(x => x.IdProperty == property.IdProperty, property);
 
     public async Task DeleteAsync(string id) =>
-        await _collection.DeleteOneAsync(x => x.IdProperty == id);
+        await _collection.Properties.DeleteOneAsync(x => x.IdProperty == id);
 }

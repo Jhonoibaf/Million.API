@@ -26,7 +26,7 @@ public sealed class DatabaseInitializer : IDatabaseInitializer
         if (ConventionRegistry.Lookup(typeof(MongoDbContext)) == null)
             ConventionRegistry.Register("DefaultConventions", pack, _ => true);
 
-        await _database.RunCommandAsync<BsonDocument>("{ ping: 1 }", cancellationToken: ct);
+        await _database.RunCommandAsync<BsonDocument>(new BsonDocument("ping", 1), cancellationToken: ct);
 
         var existing = await (await _database.ListCollectionNamesAsync(cancellationToken: ct))
                                         .ToListAsync(ct);
