@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36408.4 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Million.Properties.API", "Million.API\Million.Properties.API.csproj", "{E9DF4DEA-3904-4ED4-8782-4658C0B2FA38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF2D6A4A-ACFA-4777-802E-3D69B5B256DE} = {CF2D6A4A-ACFA-4777-802E-3D69B5B256DE}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -22,10 +25,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Test", "5 - Test", "{8D83F6C2-774F-4C52-874E-158F5E3D5490}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Million.Properties.Application", "Million.Properties.Application\Million.Properties.Application.csproj", "{CF2D6A4A-ACFA-4777-802E-3D69B5B256DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FD34B13B-D846-46F9-925D-C3180A658FD1} = {FD34B13B-D846-46F9-925D-C3180A658FD1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Million.Properties.Domain", "Million.Properties.Domain\Million.Properties.Domain.csproj", "{FD34B13B-D846-46F9-925D-C3180A658FD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Million.Properties.Infrastructure", "Million.Properties.Infrastructure\Million.Properties.Infrastructure.csproj", "{94B8BDB6-FBD9-4D09-BE13-3B60F2957BC6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF2D6A4A-ACFA-4777-802E-3D69B5B256DE} = {CF2D6A4A-ACFA-4777-802E-3D69B5B256DE}
+		{FD34B13B-D846-46F9-925D-C3180A658FD1} = {FD34B13B-D846-46F9-925D-C3180A658FD1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Million.Properties.Data.Test", "Million.Properties.Data.Test\Million.Properties.Data.Test.csproj", "{00C9BB44-D05C-4969-B92D-3A46CD31BBE5}"
 EndProject
