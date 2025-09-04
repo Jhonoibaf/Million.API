@@ -13,12 +13,23 @@ public class Program
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "OpenCorsPolicy",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddAutoMapper(cfg => { cfg.AddProfile<MappingProfile>(); }, AppDomain.CurrentDomain.GetAssemblies());
-            
+
+
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
@@ -34,6 +45,7 @@ public class Program
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("OpenCorsPolicy");
             app.UseAuthorization();
             app.MapControllers();
             //BsonDefaults. = GuidRepresentation.Standard;
